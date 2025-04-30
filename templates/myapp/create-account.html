@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HRMS | Create Account</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  {% load static %}
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/create-account.css' %}">
+</head>
+<body>
+  <div class="container">
+   
+
+    <div class="left-panel">
+      <h2>Create Your Account</h2>
+      <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+
+      <!-- ✅ FORM -->
+      <form method="POST" action="/signup/" id="signup-form">
+        {% csrf_token %}
+        
+        <div class="input-group">
+          <label for="nom">last name</label>
+          <input type="text" id="nom" name="nom" placeholder="Enter your last name" required>
+        </div>
+        
+        <div class="input-group">
+          <label for="prenom">first name</label>
+          <input type="text" id="prenom" name="prenom" placeholder="Enter your first name" required>
+        </div>
+        
+
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="example@email.com">
+        </div>
+
+        <div class="input-group">
+          <label for="mot_de_passe">Password</label>
+          <input type="password" id="mot_de_passe" name="mot_de_passe" required placeholder="••••••••">
+        </div>
+
+        <div class="input-group">
+          <label for="role">Role</label>
+          <select id="role" name="role" required>
+            <option value="" disabled selected>Select a role</option>
+            <option value="Employee">Employee</option>
+            <option value="DRH">DRH</option>  <!-- تأكد من أن هذه القيم تتوافق مع القيم في قاعدة البيانات -->
+          </select>
+        </div>
+        
+
+        <button type="submit" class="login-btn">Sign Up</button>
+      </form>
+      <div id="django-messages" style="display: none;">
+        {% for message in messages %}
+          <div class="msg" data-tag="{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+      
+      <!-- ✅ Messages -->
+      <div class="message-success" style="display: none; color: green;"></div>
+      <div class="message-error" style="display: none; color: red;"></div>
+
+    </div>
+
+    <div class="right-panel">
+      <button class="theme-toggle" onclick="toggleTheme()">🌙 Toggle Theme</button>
+      <h1>Welcome</h1>
+      <p>to the HR Management<br>Platform. Your team's journey starts here.</p>
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+    }
+  </script>
+
+
+  <script src="{% static 'js/create-account.js' %}"></script>
+</body>
+</html>
+
+

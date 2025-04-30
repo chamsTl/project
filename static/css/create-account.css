@@ -1,0 +1,168 @@
+:root {
+  --primary-color: #1e90ff;
+  --text-color: #222;
+  --bg-color: #ffffff;
+  --input-bg: #f4f4f4;
+  --card-shadow: rgba(0, 0, 0, 0.1);
+}
+
+body.dark {
+  --text-color: #ffffff;
+  --bg-color: #121212;
+  --input-bg: #1e1e1e;
+  --card-shadow: rgba(255, 255, 255, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.5s ease;
+  padding: 20px;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  max-width: 1000px;
+  width: 100%;
+  background-color: var(--bg-color);
+  border-radius: 24px;
+  box-shadow: 0 15px 35px var(--card-shadow);
+  overflow: hidden;
+  animation: fadeIn 1s ease-in-out;
+  flex-wrap: wrap;
+}
+.theme-toggle {
+  position: absolute; /* لتثبيته داخل المربع الأزرق */
+  top: 20px;
+  right: 20px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 1;
+}
+
+
+
+
+.left-panel, .right-panel {
+  flex: 1 1 400px;
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.left-panel h2 {
+  font-size: 2rem;
+  color: var(--text-color);
+  margin-bottom: 10px;
+}
+
+.left-panel p {
+  color: gray;
+  margin-bottom: 30px;
+}
+
+.left-panel a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  font-size: 0.95rem;
+  color: var(--text-color);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+}
+
+.input-group input:focus,
+.input-group select:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+.login-btn {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 12px 0;
+  border: none;
+  width: 100%;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.right-panel {
+  position: relative;
+  background-color: var(--primary-color);
+  color: white;
+  align-items: center;
+  text-align: center;
+}
+
+.right-panel h1 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.right-panel p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .theme-toggle {
+    top: 10px;
+    right: 10px;
+  }
+
+  .left-panel, .right-panel {
+    padding: 30px 20px;
+  }
+
+  .right-panel h1 {
+    font-size: 1.8rem;
+  }
+
+  .right-panel p {
+    font-size: 1rem;
+  }
+}

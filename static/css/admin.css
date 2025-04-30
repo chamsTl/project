@@ -1,0 +1,498 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f9f9fb;
+}
+
+.sidebar {
+  background-color: #007bff;
+  color: white;
+  width: 300px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebar .avatar {
+  width: 100px;
+  height: 100px;
+  background-color: #e0e0e0;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.sidebar .greeting {
+  margin: 10px 0;
+  text-align: center;
+}
+
+.sidebar .menu {
+  margin-top: 30px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.menu button {
+  background: none;
+  border: 1px solid white;
+  color: white;
+  border-radius: 12px;
+
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  margin: 0; /* No space between buttons */
+}
+
+.menu button.active {
+  background-color: white;
+  color: #007bff;
+  transform: scale(1.07);
+}
+
+
+.main {
+  flex-grow: 1;
+  padding: 30px;
+}
+
+.main h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.main .summary {
+  display: flex;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.summary .card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  flex: 1;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.summary .card h2 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.summary .card p {
+  font-size: 14px;
+  color: #333;
+}
+
+.summary .card span {
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.summary .card:nth-child(1) span,
+.summary .card:nth-child(2) span,
+.summary .card:nth-child(3) span {
+  color: #28a745;
+}
+
+.summary .card:nth-child(4) span {
+  color: #dc3545;
+}
+
+.chart-container {
+  display: flex;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.chart, .workforce {
+  flex: 1;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.chart h3, .workforce h3 {
+  margin-bottom: 10px;
+}
+
+canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+.logout-btn {
+margin-top: auto;
+background-color: white;
+color: #007bff;
+border: none;
+padding: 12px 20px;
+border-radius: 12px;
+font-weight: bold;
+cursor: pointer;
+width: 100%;
+transition: background 0.3s ease;
+}
+
+.logout-btn:hover {
+background-color: #e0e0e0;
+}
+.search-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.search-container input {
+  padding: 10px;
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.search-container button {
+  padding: 10px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.styled-table thead {
+  background-color: #007bff;
+  color: white;
+}
+
+.styled-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.styled-table tbody tr:hover {
+  background-color: #e0e0e0;
+}
+
+.approve, .reject, .edit, .delete {
+  padding: 6px 10px;
+  margin: 2px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.approve { background-color: #28a745; color: white; }
+.reject { background-color: #dc3545; color: white; }
+.edit { background-color: #ffc107; color: black; }
+.delete { background-color: #dc3545; color: white; }
+
+.profile-desc {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.profile-form-box {
+  background-color: #e6f0ff;
+  border: 1px solid #b3d1ff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.form-group input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.update-profile-btn {
+  padding: 10px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 250px; /* نفس حجم زر Search */
+  margin-top: 10px;
+}
+.custom-table {
+width: 100%;
+border-collapse: collapse;
+font-family: 'Inter', sans-serif;
+margin-top: 1rem;
+background-color: #fff;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+border-radius: 12px;
+overflow: hidden;
+border: 1px solid #040000;
+}
+
+.custom-table thead {
+background-color: #e6f0ff;
+color: #003366;
+}
+
+.custom-table th, .custom-table td {
+padding: 12px 16px;
+border: 1px solid #ddd;
+text-align: left;
+font-size: 14px;
+}
+
+.custom-table tr:hover {
+background-color: #f2f8ff;
+}
+
+.custom-table button {
+padding: 4px 10px;
+margin: 0 2px;
+border: none;
+border-radius: 6px;
+cursor: pointer;
+font-size: 14px;
+}
+
+.custom-table button[title="Approve"] {
+background-color: #4CAF50;
+color: white;
+}
+
+.custom-table button[title="Reject"] {
+background-color: #f44336;
+color: white;
+}
+
+#searchInput {
+padding: 8px 12px;
+border: 1px solid #ccc;
+border-radius: 8px;
+font-size: 14px;
+margin-bottom: 12px;
+width: 250px;
+}
+
+/* التنسيق العام لنوافذ النماذج */
+.modal-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5); /* خلفية مظلمة */
+display: none;
+justify-content: center;
+align-items: center;
+z-index: 999;
+}
+
+/* مربع النموذج الأبيض */
+.form-modal {
+background-color: white;
+padding: 40px;
+border-radius: 10px;
+width: 600px; /* زيادة العرض */
+max-width: 90%; /* ليكون مرن في الشاشات الصغيرة */
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* تصميم الأزرار */
+.send-btn, .cancel-btn {
+padding: 10px 15px;
+margin-top: 20px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}
+
+.send-btn {
+background-color: #4CAF50;
+color: white;
+}
+
+.cancel-btn {
+background-color: #f44336;
+color: white;
+margin-left: 10px;
+}
+
+/* تنسيق الحقول */
+.form-row {
+margin-bottom: 15px;
+}
+
+.form-row label {
+font-weight: bold;
+}
+
+.form-row input, .form-row select {
+width: 100%;
+padding: 8px;
+margin-top: 5px;
+border: 1px solid #ccc;
+border-radius: 4px;
+}
+/* نافذة منبثقة */
+.popup {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5); /* خلفية داكنة */
+display: none; /* مخفية بشكل افتراضي */
+justify-content: center;
+align-items: center;
+z-index: 9999;
+}
+
+/* محتوى النافذة المنبثقة */
+.popup-content {
+background-color: white;
+padding: 20px;
+border-radius: 5px;
+width: 300px;
+text-align: center;
+}
+
+.popup-content .close {
+position: absolute;
+top: 10px;
+right: 10px;
+font-size: 20px;
+cursor: pointer;
+}
+
+.popup-content h3 {
+margin-bottom: 15px;
+}
+
+
+.profile-settings-container {
+  max-width: 800px;
+  margin: 40px auto;
+  background-color: #459bf8;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
+}
+
+.profile-title {
+  text-align: center;
+  color: #ffffff;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.profile-subtitle {
+  text-align: center;
+  color: #fffdfd;
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+.profile-form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-label {
+  width: 25%;
+  margin-right: 10px;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.profile-input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.profile-input:focus {
+  border-color: #4a90e2;
+  outline: none;
+}
+
+.profile-button-wrapper {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.profile-update-button {
+  background-color: white;
+  color: #007bff;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.profile-update-button:hover {
+  background-color: #357ab8;
+  color: white;
+}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="UTF-8" />
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  {% load static %}
+  <title>Dashboard UI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{% static 'css/DRHstyles.css' %}">
+</head>
+<body>
+  <div class="sidebar">
+    <div class="avatar"></div>
+    <div class="greeting">
+      <p>Good Morning <strong>{{ user.nom }} {{ user.prenom }}!</strong></p>
+      <p>{{ user.email }}</p>
+    </div>
+    
+    <div class="menu">
+      <button class="active">Dashboard</button>
+      <button>Employee Management</button>
+      <button>Contract Management</button>
+      <button>Leave Management</button>
+      <button>Performance Evaluations</button>
+      <button>Recruitment</button>
+      <button>Payroll Management</button>
+      <button>Profile Settings</button>
+    </div>
+    <button class="logout-btn">Log Out</button>
+  </div>
+
+  <div class="main">
+    <h1>Welcome Back, <strong>{{ user.nom }} {{ user.prenom }}!</strong></h1>
+    <p>Here is the information about all the center details</p>
+    <div class="summary">
+      <div class="card">
+        <h2 id="employes-count">0</h2>
+        <p>Employees</p>
+        <span>&#8593; Today</span>
+      </div>
+      <div class="card">
+           <h2 id="candidats-count">0</h2>
+           <p>Candidates</p>
+             <span>&#8593; Today</span>
+      </div>
+      <div class="card">
+          <h2 id="absences-count">0</h2>
+          <p>Absences</p>
+              <span>&#8593; Today</span>
+      </div>
+      </div>
+  <div class="chart-container">
+    <div class="chart">
+      <h3>Weekly Overview</h3>
+        <canvas id="departementChart" ></canvas>
+    </div>
+    <div class="workforce">
+      <h3>Workforce</h3>
+      <canvas id="workforceChart"></canvas>
+    </div>
+  </div>
+   
+<!-- Modal HTML structure for Promotion -->
+<div id="promotion-modal" class="modal" style="display: none;">
+  <div class="modal-content">
+      <h3>Promote Employee</h3>
+      <input type="text" id="promotion-type" placeholder="Enter promotion type">
+      <button id="accept-promotion" onclick="promoteEmployee(1, document.getElementById('promotion-type').value)">Accept</button>
+      <button id="cancel-promotion">Cancel</button>
+  </div>
+</div>
+<!-- Modal HTML structure for Transfer -->
+<div id="transfer-modal" class="modal" style="display: none;">
+  <div class="modal-content">
+      <h3>Transfer Employee</h3>
+      <input type="text" id="new-department" placeholder="Enter new department">
+      <input type="text" id="new-post" placeholder="Enter new position">
+      <button id="accept-transfer">Accept</button>
+      <button id="cancel-transfer">Cancel</button>
+  </div>
+</div>
+
+    
+<!--this for leave request-->
+<div class="leave-requests" id="conges-section" style="display: none;">
+  <h1>Leave Management</h1>
+  <div class="search-wrapper">
+    <input type="text" id="searchInput" placeholder="Search by name..." />
+    <button id="searchBtn">🔍 Search</button>
+  </div>
+  
+  <table class="leave-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Reason</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="leave-body">
+      <!-- Data rows will be dynamically inserted here -->
+    </tbody>
+  </table>
+  </div>
+  <!--this for pyroll-->
+  <div id="payroll-section" style="display: none;">
+    <h1>Payroll Management</h1>
+    <div class="search-wrapper">
+      <input type="text" placeholder="Search by employee name..." />
+      <button>🔍 Search</button>
+    </div>
+    
+    <table class="payroll-table">
+      <thead>
+        <tr>
+          <th>Employee</th>
+          <th>Month</th>
+          <th>Gross Salary</th>
+          <th>Deductions</th>
+          <th>Net Salary</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="payroll-body">
+        <!-- Payroll rows will be loaded here -->
+      </tbody>
+    </table>
+  </div>
+  
+  
+  
+  <!--this for profile setting-->
+  <div id="profileSettingsContent"></div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="{% static 'js/DRHscript.js' %}"></script>
+</body>
+</html>

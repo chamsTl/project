@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ 
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  {% load static %}
+  <title>Dashboard UI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{% static 'css/employer.css' %}">
+</head>
+<body>
+  <div class="sidebar">
+    <div class="avatar">
+      <div class="header">
+        <button class="profile-btn" data-section="profile" title="My Profile">
+          👤
+        </button>
+      </div>
+    </div>
+    <div class="greeting">
+      <p>Good Morning <strong>{{ user.nom }} {{ user.prenom }}!</strong></p>
+      <p>{{ user.email }}</p>
+    </div>
+    <div class="menu">
+      <button class="active" data-section="dashboard">Dashboard</button>
+      <button data-section="leave">My Leave Requests</button>
+      <button data-section="evaluation">My Evaluations</button>
+      <button data-section="payroll">My Pay Slips</button>
+      <!-- <button data-section="profile">My Profile</button> -->
+    </div>
+    <button class="logout-btn">Log Out</button>
+  </div>
+
+  <div class="main">
+    <h1>Welcome Back, <strong>{{ user.nom }} {{ user.prenom }}!</strong></h1>
+    <p>Here is the information about all the center details</p>
+
+    <div class="container">
+      
+
+      <!-- Personal Info -->
+      <div class="card">
+        <h2>Personal Information</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <strong>Full Name</strong>
+           
+          </div>
+          <div class="info-item">
+            <strong>Position</strong>
+            
+          </div>
+          <div class="info-item">
+            <strong>Email</strong>
+            
+          </div>
+          <div class="info-item">
+            <strong>Employee ID</strong>
+            
+          </div>
+          <div class="info-item">
+            <strong>Department</strong>
+            
+          </div>
+          <div class="info-item">
+            <strong>Join Date</strong>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+      <!-- Performance Review -->
+    
+
+      <div id="leave-section">
+        <!-- Leave content dynamically loaded -->
+      </div>
+
+      <div class="payslip-grid">
+        <!-- Payslip content dynamically loaded -->
+      </div>
+
+    </div>
+  </div>
+
+  
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   <script src="{% static 'js/employer.js' %}"></script>
+  </body>
+  </html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ 
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  {% load static %}
+  <title>Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+</head>
+<body>
+
+  <div class="sidebar">
+    <div class="avatar"></div>
+    <div class="greeting">
+      <p>Welcome Back <strong>{{ user.nom }} {{ user.prenom }}!</strong></p>
+    </div>
+    <div class="menu">
+      <button class="active" onclick="showSection('dashboard-section')">Dashboard</button>
+      <button onclick="showSection('notification-section')">Notification</button>
+      <button onclick="showSection('users-section')">Users</button>
+      <button onclick="showSection('settings-section')"> Settings </button>
+    </div>
+    <button class="logout-btn" >Log Out</button>
+
+  </div>
+
+  <div class="main">
+
+    <!-- === DASHBOARD SECTION === -->
+    <div id="dashboard-section">
+      <h1>Welcome Back,<strong>{{ user.nom }} {{ user.prenom }}!</strong> </h1>
+      <p>Here is the information about all the center details</p>
+
+      <div class="summary">
+        <div class="card"><p>Employees</p><h2>{{ employee_count }}</h2></div>
+        <div class="card"><p>Users</p><h2>{{ total_users }}</h2></div>
+        <div class="card"><p>DRH</p><h2>{{ admin_count }}</h2></div>
+      </div>
+
+      <div class="chart-container">
+        <div class="chart">
+          <h3>Weekly Overview</h3>
+          <canvas id="weeklyChart"></canvas>
+        </div>
+        <div class="workforce">
+          <h3>Workforce</h3>
+          <canvas id="workforceChart" ></canvas>
+        </div>
+      </div>
+    </div>
+
+   
+    <!-- === NOTIFICATION SECTION === -->
+<div id="notification-section" style="display: none;">
+  <h2>Pending Requests</h2><br>
+  <p>Number of users waiting {{ pending_users|length }}</p>
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search by Last Name... 🔍">
+    <button onclick="searchByName()">Search</button>
+  </div>
+  
+  <div class="recruitment-table-wrapper">
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Last Name</th>
+          <th>First Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Date Created</th>
+          <th>Status</th> <!-- عمود جديد للحالة -->
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="user-table-body">
+        {% for user in pending_users %}
+          <tr>
+            <td>{{ user.nom }}</td>
+            <td>{{ user.prenom }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.role.nom_role }}</td>
+            <td>{{ user.date_creation|date:"Y-m-d H:i" }}</td>
+            <td>
+              {% if user.statut == "en_attente" %}
+              ⏳Pending
+              {% endif %}
+            </td>
+            <td>
+              <!-- زر الموافقة لتحديث الحالة إلى "مقبول" -->
+              <form method="POST" action="{% url 'accept_user' user.id %}" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="accept">
+                <button type="submit" class="approve" title="Approve">✔</button>
+              </form>
+              
+              <!-- زر الرفض لحذف المستخدم نهائيًا -->
+              <form method="POST" action="{% url 'delete_user' user.id %}" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="reject">
+                <button type="submit" class="reject" title="Reject">✖</button>
+              </form>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="7" style="text-align:center;">No pending requests</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      
+    </table>
+  </div>
+  
+</div>
+
+<!-- === USERS SECTION === -->
+<div id="users-section" style="display: none;">
+  <h2>All Users</h2><br>
+  <p>Total users: {{ total_users }}</p>
+
+  <div class="search-container">
+    <input type="text" onclick="searchUsersByLastName()" id="searchUserInput" placeholder="Search by last name... 🔍">
+    <button onclick="toggleAddAdminForm()">➕ Add an admin</button>
+  </div>
+  
+  
+  <div class="recruitment-table-wrapper">
+    <table class="styled-table">
+      <thead>
+        <tr>
+          
+          <th>Last Name</th>
+          <th>First Name</th>
+          <th>Email</th>
+          <th>Password</th>
+          <th>Role</th>
+          <th>Date Created</th>
+          <th>Status</th>
+          <th>ID</th> <!-- أضفنا هذا السطر -->
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="userTableBody">
+        {% for user in all_users %}
+          {% if user.statut == "accepte" %}  <!-- عرض المستخدمين الذين حالتهم "مقبول" فقط -->
+            <tr>
+              <td>{{ user.nom }}</td>     <!-- Last Name -->
+              <td>{{ user.prenom }}</td>  <!-- First Name -->
+              
+              <td>{{ user.email }}</td>
+              <td>********</td>
+              <td>{{ user.role.nom_role }}</td>
+              <td>{{ user.date_creation|date:"Y-m-d H:i" }}</td>
+              <td>
+                {% if user.statut == "accepte" %}
+                  ✅ Accepted
+                {% endif %}
+              </td>
+              <td>{{ user.id }}</td> <!-- عرض الـ ID هنا -->
+              <td>
+             <!-- بدلاً من <a href="{% url 'edit_user' user.id %}" ...> -->
+              <form method="get" action="#" style="display:inline;">
+                <button type="button" title="Edit" style="color: blue; background: transparent; border: none; cursor: pointer;" onclick="showEditPopup('{{ user.id }}')">
+                  ✏
+                </button>
+              </form>
+              
+             <!-- غيرنا id="editPopup" إلى id="editPopup-{{ user.id }}" -->
+               <div id="editPopup-{{ user.id }}" style="display: none;" class="popup">
+
+                <div class="popup-content">
+                  <span class="close" onclick="closeEditPopup()">&times;</span>
+                  <h3>Edit User</h3>
+                  <form method="post" action="{% url 'edit_user' user.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="user_id" value="{{ user.id }}">
+                    
+                    <label for="fieldToEdit">Choose a field to edit:</label>
+                    <select id="fieldToEdit" name="field_to_edit">
+                      
+                      <option value="nom">Last Name</option>
+                      <option value="prenom">First Name</option>
+                      <option value="email">Email</option>
+                    </select>
+                    <br><br>
+                    <label for="newValue">New Value:</label>
+                    <input type="text" id="newValue" name="new_value" required>
+                    <br><br>
+                    <div class="search-container">
+                   
+                    <button type="submit"  class="search-container" >Save</button>
+                    <button type="button"  class="search-container" onclick="closeEditPopup()" >Cancel</button>
+                  </div>
+                  </form>
+                  
+                   
+                  
+                </div>
+              </div>
+                <form method="POST" action="{% url 'delete_user' user.id %}" style="display:inline;">
+                  {% csrf_token %}
+                  <button type="submit" title="Delete" style="color: red;">🗑</button>
+                </form>
+              </td>
+            </tr>
+          {% endif %}
+        {% empty %}
+        <tr>
+          <td colspan="8" style="text-align:center;">No users found</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- === ADD ADMIN MODAL SECTION === -->
+<!-- === ADD ADMIN MODAL SECTION === -->
+<div id="add-admin-modal" class="modal-overlay" style="display: none;">
+  <div class="form-modal">
+    <h2>Add Admin</h2>
+    <form method="POST"  action="{% url 'add_admin' %}">
+      {% csrf_token %}
+      
+      <!-- First Name and Last Name Fields in a row -->
+      <div class="form-row" style="display: flex; gap: 20px;">
+        <div style="flex: 1;">
+          <label>First Name:</label>
+          <input type="text" name="nom" placeholder="enter your first name" required>
+        </div>
+        <div style="flex: 1;">
+          <label>Last Name:</label>
+          <input type="text" name="prenom" placeholder="enter your last name" required>
+        </div>
+      </div>
+
+      <!-- Email Field -->
+      <div class="form-row" >
+        <label>Email:</label>
+        <input type="email" name="email" placeholder="admin@example.com" required>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-row">
+        <label>Password:</label>
+        <input type="password" name="mot_de_passe" placeholder="Enter password" required>
+      </div>
+
+      <!-- Buttons -->
+      
+      <div class="search-container" >
+        <button type="submit" class="send-btn">Add Admin</button>
+        <button type="button" class="cancel-btn" onclick="toggleAddAdminForm()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+    <!-- === SETTINGS SECTION === -->
+    <div id="settings-section" class="profile-settings-container" style="display: none;">
+      <h1 class="profile-title">Profile Settings</h1>
+      <p class="profile-subtitle">Edit your personal information.</p>
+      <form id="profileForm">
+        <div class="profile-form-group">
+          <label for="fullName" class="profile-label">Full Name</label>
+          <input type="text" id="fullName" name="fullName" class="profile-input" placeholder="Enter your full name" required />
+        </div>
+    
+        <div class="profile-form-group">
+          <label for="username" class="profile-label">Username</label>
+          <input type="text" id="username" name="username" class="profile-input" placeholder="Enter your username" required />
+        </div>
+    
+        <div class="profile-form-group">
+          <label for="email" class="profile-label">Email</label>
+          <input type="email" id="email" name="email" class="profile-input" placeholder="Enter your email" required />
+        </div>
+    
+        <div class="profile-form-group">
+          <label for="password" class="profile-label">Password</label>
+          <input type="password" id="password" name="password" class="profile-input" placeholder="Enter new password" required />
+        </div>
+    
+        <div class="profile-form-group">
+          <label for="confirmPassword" class="profile-label">Confirm Password</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" class="profile-input" placeholder="Confirm your password" required />
+        </div>
+    
+        <div class="profile-button-wrapper">
+          <button type="submit" class="profile-update-button">Update Profile</button>
+        </div>
+      </form>
+    </div>
+    
+
+  </div>
+
+
+
+
+  <!-- External Scripts -->
+  <script id="user_by_day_data" type="application/json">{{ user_by_day|safe }}</script>
+  <script id="accepted_percentage" type="text/plain">{{ accepted_percentage|floatformat:2 }}</script>
+  <script id="rejected_percentage" type="text/plain">{{ rejected_percentage|floatformat:2 }}</script>
+  <script id="pending_percentage" type="text/plain">{{ pending_percentage|floatformat:2 }}</script>
+  
+ <!-- تحميل مكتبة Chart.js مرة واحدة فقط -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</script>
+<!-- ربط ملف JavaScript الخارجي إذا كان يحتوي على أكواد إضافية -->
+<script src="{% static 'js/admin.js' %}"></script>
+
+<script>
+  function showEditPopup(userId) {
+    var popup = document.getElementById('editPopup-' + userId);
+    if (popup) {
+      popup.style.display = 'block';
+    }
+  }
+
+  function closeEditPopup() {
+    const popups = document.querySelectorAll('.popup');
+    popups.forEach(p => p.style.display = 'none');
+  }
+</script>
+
+{% if messages %}
+  {% for message in messages %}
+    <div id="django-message" data-type="{{ message.tags }}" data-text="{{ message }}">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+
+
+</body>
+</html>

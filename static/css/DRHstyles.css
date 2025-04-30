@@ -1,0 +1,999 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f9f9fb;
+}
+
+.sidebar {
+  background-color: #007bff;
+  color: white;
+  width: 300px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebar .avatar {
+  width: 100px;
+  height: 100px;
+  background-color: #e0e0e0;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.sidebar .greeting {
+  margin: 10px 0;
+  text-align: center;
+}
+
+.sidebar .menu {
+  margin-top: 30px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.menu button {
+  background: none;
+  border: 1px solid white;
+  color: white;
+  border-radius: 5px;
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  margin: 0; /* No space between buttons */
+}
+
+.menu button.active {
+  background-color: white;
+  color: #007bff;
+  transform: scale(1.07);
+}
+
+
+.main {
+  flex-grow: 1;
+  padding: 30px;
+  align-items: center;      /* Center vertically */
+  min-height: 100vh;  
+}
+
+.main h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.main h2 {
+  color: #333;
+  font-size: 28px;
+}
+
+.main p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.main form {
+    background-color:#459bf8;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 97%;
+  }
+  .form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    justify-content: flex-start;
+  }
+  
+  
+  label {
+    font-weight: bold;
+    width: 25%; /* Fixed width for label */
+    color:white;
+  }
+  
+  input {
+    width: 65%; /* Remaining space for input */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  
+  input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .button-update {
+    width: auto;
+    padding: 12px 24px;
+    background-color: white;
+    color: #007bff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .button-wrapper {
+    display: flex;
+    justify-content: flex-end; /* Aligns button to the right */
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+    .header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+  }
+.profile-btn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 8px;
+  width: 90px; /* Adjusted size to a reasonable button size */
+  height: 90px; /* Adjusted size to a reasonable button size */
+  border-radius: 60%;
+  background-color: #e0e0e0;
+  transition: background 0.3s;
+}
+
+.profile-btn:hover {
+  background-color: #e2e8f0;
+}
+.main .summary {
+  display: flex;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.summary .card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  flex: 1;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.summary .card h2 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.summary .card p {
+  font-size: 14px;
+  color: #333;
+}
+
+.summary .card span {
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.summary .card:nth-child(1) span,
+.summary .card:nth-child(2) span,
+.summary .card:nth-child(3) span {
+  color: #28a745;
+}
+
+.summary .card:nth-child(4) span {
+  color: #dc3545;
+}
+
+.chart-container {
+  display: flex;
+  gap: 20px;
+  margin-top: 30px;
+}
+.workforce {
+display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+.chart{
+  flex: 1;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.chart h3, .workforce h3 {
+  margin-bottom: 10px;
+}
+
+canvas {
+  width: 100% !important;
+  height: auto  !important;
+}
+.logout-btn {
+margin-top: auto;
+background-color: white;
+color: #007bff;
+border: none;
+padding: 12px 20px;
+border-radius: 12px;
+font-weight: bold;
+cursor: pointer;
+width: 100%;
+transition: background 0.3s ease;
+}
+
+.logout-btn:hover {
+background-color: #e0e0e0;
+} 
+/*leave desgn*/
+.leave-requests {
+  background: #f9f9ff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  font-family: 'Inter', sans-serif;
+}
+
+.leave-requests .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.leave-requests .search-bar {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.leave-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.leave-table th, .leave-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.leave-table th {
+  background-color: #eef0fb;
+  font-weight: 600;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status.open {
+  background-color: #e0e7ff;
+  color: #3b4cca;
+}
+
+.status.approved {
+  background-color: #d4f5dc;
+  color: #1b8a3b;
+}
+
+.status.rejected {
+  background-color: #ffd6d6;
+  color: #d32f2f;
+}
+
+button.approve, button.reject {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+button.approve {
+  background-color: #4caf50;
+  color: white;
+  margin-right: 5px;
+}
+
+button.reject {
+  background-color: #f44336;
+  color: white;
+}
+/*partie pyment*/
+
+
+.payroll-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.payroll-table th, .payroll-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.payroll-table th {
+  background-color: #eef0fb;
+  font-weight: 600;
+}
+
+.status1 {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  text-align: center;
+  font-weight: bold;
+}
+.status1.paid {
+  background-color: #d4edda;
+  color: #155724;
+}
+.status1.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+.approve, .reject {
+  padding: 6px 10px;
+  margin: 2px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}
+.approve {
+  background-color: #4CAF50;
+  color: white;
+}
+.reject {
+  background-color: #F44336;
+  color: white;
+}
+
+/*serch payroll*/
+.search-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 15px;
+  gap: 10px;
+}
+
+#payrollSearchInput {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 220px;
+}
+
+#payrollSearchBtn {
+  background-color: #007bff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#payrollSearchBtn:hover {
+  background-color: #0056b3;
+}
+
+/*search btn*/
+.search-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 15px;
+  gap: 10px;
+}
+
+.search-wrapper input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 220px;
+}
+
+.search-wrapper button {
+  background-color: #007bff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.search-wrapper button:hover {
+  background-color: #0056b3;
+}
+
+
+
+/* تنسيق الجداول */
+table {
+  width: 100%; /* العرض الكامل للجدول داخل الحاوية */
+  border-collapse: collapse; /* دمج الحدود بين الخلايا */
+  margin: 20px 0; /* مسافة بين الجداول */
+  font-family: 'Inter', sans-serif;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* تأثير الظل */
+  border-radius: 8px; /* حدود دائرية للجداول */
+  overflow: hidden;
+  table-layout: auto; /* تكييف حجم الأعمدة حسب المحتوى */
+}
+
+thead {
+  background-color: #f4f6f8; /* لون خلفية العناوين */
+}
+
+th, td {
+  padding: 12px 16px; /* مسافة حول النص داخل الخلايا */
+  text-align: left; /* محاذاة النص لليسار */
+  border-bottom: 1px solid #ddd; /* حدود تحتية بين الخلايا */
+  white-space: nowrap; /* منع تكسير النص */
+}
+
+th {
+  font-size: 16px; /* حجم الخط للعناوين */
+  font-weight: bold; /* جعل العناوين بالخط العريض */
+}
+
+td {
+  font-size: 14px; /* حجم الخط للمحتوى */
+}
+
+/* تأثير عند تمرير الفأرة */
+tr:hover {
+  background-color: #f9f9f9; /* تغيير الخلفية عند مرور الفأرة */
+}
+
+/* تنسيق الحاوية التي تحتوي على الجداول */
+.table-container {
+  display: flex; /* استخدام الفليكس لعرض الجداول بشكل مرتب */
+  flex-wrap: wrap; /* السماح للجداول بالتوزيع على عدة صفوف */
+  gap: 20px; /* المسافة بين الجداول */
+  justify-content: space-between; /* توزيع الجداول بشكل متساوٍ */
+  padding: 20px;
+}
+
+/* تنسيق كل جدول داخل الحاوية */
+.table-container table {
+  width: 48%; /* كل جدول يأخذ 48% من عرض الحاوية (لتوزيع 2 جدول في صف واحد) */
+  margin-bottom: 20px; /* مسافة أسفل كل جدول */
+  border-radius: 8px; /* حدود دائرية للجداول */
+}
+
+/* تحسين عرض الجداول عند الشاشات الصغيرة */
+@media (max-width: 768px) {
+  .table-container {
+    flex-direction: column; /* عرض الجداول عموديًا عند الشاشات الصغيرة */
+  }
+
+  .table-container table {
+    width: 100%; /* جعل الجداول تأخذ العرض الكامل في الشاشات الصغيرة */
+  }
+}
+
+/* تنسيق المودال */
+#promotion-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* تنسيق محتوى المودال */
+#promotion-modal .modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* تنسيق العناوين داخل المودال */
+#promotion-modal h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* تنسيق الحقل النصي لادخال الترقية */
+#promotion-modal #promotion-type {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* تنسيق الأزرار داخل المودال */
+#promotion-modal button {
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+/* زر Accept */
+#promotion-modal #accept-promotion {
+  background-color: #4CAF50; /* لون أخضر */
+  color: white;
+}
+
+/* زر Accept عند التمرير عليه */
+#promotion-modal #accept-promotion:hover {
+  background-color: #45a049;
+}
+
+/* زر Cancel */
+#promotion-modal #cancel-promotion {
+  background-color: #f44336; /* لون أحمر */
+  color: white;
+}
+
+/* زر Cancel عند التمرير عليه */
+#promotion-modal #cancel-promotion:hover {
+  background-color: #e53935;
+}
+
+/* تنسيق المودال */
+#transfer-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* تنسيق محتوى المودال */
+#transfer-modal .modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* تنسيق العناوين داخل المودال */
+#transfer-modal h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* تنسيق الحقول النصية */
+#transfer-modal input {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* تنسيق الأزرار داخل المودال */
+#transfer-modal button {
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+/* زر Accept */
+#transfer-modal #accept-transfer {
+  background-color: #4CAF50; /* لون أخضر */
+  color: white;
+}
+
+/* زر Accept عند التمرير عليه */
+#transfer-modal #accept-transfer:hover {
+  background-color: #45a049;
+}
+
+/* زر Cancel */
+#transfer-modal #cancel-transfer {
+  background-color: #f44336; /* لون أحمر */
+  color: white;
+}
+
+/* زر Cancel عند التمرير عليه */
+#transfer-modal #cancel-transfer:hover {
+  background-color: #e53935;
+}
+
+button {
+  margin: 5px;
+}
+
+.status.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.status.inactive {
+  background-color: #f44336;
+  color: white;
+}
+
+.status.open,
+.status.pending {
+  background-color: #ff9800;
+  color: white;
+}
+
+/* أزرار الأكشن الموحدة */
+button.promote,
+button.transfer,
+button.update,
+button.edit,
+button.print,
+button.delete {
+  background-color: #ddd; /* لون افتراضي مؤقت */
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  min-width: 80px;
+  margin-right: 6px;
+  text-align: center;
+}
+button.print{
+  background-color: #FF9800; 
+}
+.button.print:hover {
+  background-color: #fb8c00;
+}
+/* تخصيص لكل زر بلونه المميز */
+button.promote {
+  background-color: #4CAF50;
+}
+
+button.promote:hover {
+  background-color: #43a047;
+}
+
+button.transfer {
+  background-color: #2196F3;
+}
+
+button.transfer:hover {
+  background-color: #1e88e5;
+}
+
+button.update {
+  background-color: #FF9800;
+}
+
+button.update:hover {
+  background-color: #fb8c00;
+}
+
+button.edit {
+  background-color: #607d8b;
+}
+
+button.edit:hover {
+  background-color: #546e7a;
+}
+
+button.delete {
+  background-color: #e53935;
+}
+
+button.delete:hover {
+  background-color: #d32f2f;
+}
+
+/* تجميع الأزرار داخل الخلية بشكل منسق */
+.action-buttons {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+#evaluations-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#employee-body tr.highlight-search-result td {
+  background-color: #f0f8ff !important;
+  color: #000 !important;
+  font-weight: bold !important;
+}
+
+
+#evaluations-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#employee-body tr.highlight-search-result td {
+  background-color: #f0f8ff !important;
+  color: #000 !important;
+  font-weight: bold !important;
+}
+
+/* الحاوية للزر */
+.add-job-container {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: flex-end; /* هذا هو السحر اللي يخليها يمين */
+}
+
+/* زر الإضافة */
+.add-job-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add-job-button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.recruitment-table-wrapper {
+  max-height: 400px; /* الطول ثابت */
+  overflow-y: auto; /* سكرول عمودي */
+  overflow-x: auto; /* سكرول أفقي إذا احتاج */
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  background-color: white;
+}
+
+/* الجدول داخل هذه الحاوية */
+.recruitment-table {
+  min-width: 100%;
+  border-collapse: collapse;
+  font-family: 'Inter', sans-serif;
+  table-layout: auto;
+}
+
+/* رأس الجدول */
+.recruitment-table thead {
+  background-color: #f4f6f8;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* خلايا الجدول */
+.recruitment-table th,
+.recruitment-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+/* رؤوس الأعمدة */
+.recruitment-table th {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* تأثير الهوفر */
+.recruitment-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* تصميم نافذة المودال */
+.modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  font-family: Arial, sans-serif;
+}
+
+.modal form {
+  background-color: #ffffff !important;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.modal h3 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  color: #222;
+  font-weight: bold;
+}
+
+.modal form label {
+  display: block;
+  margin-top: 15px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #444;
+}
+
+.modal form input,
+.modal form select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  background-color: #fff; /* تبقى الخلفية بيضاء */
+}
+
+/* لما المستخدم يضغط على الحقل أو يركز عليه */
+.modal form input:focus,
+.modal form select:focus {
+  outline: none;
+  border: 2px solid #007bff; /* الحافة تصير زرقاء */
+  background-color: #fff; /* تبقى الخلفية بيضاء */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.2); /* لمسة ظل خفيفة حول الحقل */
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+
+
+.mark-paid {
+  background-color: #28a745; /* Green color for 'Paid' */
+  color: white; /* Text color */
+  font-size: 16px; /* Font size */
+  font-weight: bold; /* Bold text */
+  padding: 10px 20px; /* Padding for button size */
+  border: none; /* No border */
+  border-radius: 8px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition for color and transform */
+}
+
+.mark-paid:hover {
+  background-color: #218838; /* Darker green for hover */
+  transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+.mark-paid:active {
+  background-color: #1e7e34; /* Even darker green for active state */
+  transform: scale(1); /* Reset the scale on click */
+}
+
+.mark-paid:focus {
+  outline: none; /* Remove default focus outline */
+}
+.profile-btn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 8px;
+  width: 90px; /* Adjusted size to a reasonable button size */
+  height: 90px; /* Adjusted size to a reasonable button size */
+  border-radius: 60%;
+  background-color: #e0e0e0;
+  transition: background 0.3s;
+}
+
+.profile-btn:hover {
+  background-color: #e2e8f0;
+}
