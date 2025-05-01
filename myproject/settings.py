@@ -40,7 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'myapp',  # هنا يجب أن تضيف التطبيق الخاص بك
+
+        'explorer',  # Django SQL Explorer
 ]
+
+# SQL Explorer configuration
+EXPLORER_CONNECTIONS = {'Default': 'default'}
+EXPLORER_DEFAULT_CONNECTION = 'default'
 
 CSRF_COOKIE_HTTPONLY = False  # ← مهم عشان الجافاسكربت يقدر يقرأ الـ cookie
 
